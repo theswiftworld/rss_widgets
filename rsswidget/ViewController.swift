@@ -2,24 +2,48 @@
 //  ViewController.swift
 //  rsswidget
 //
-//  Created by mengxiangping on 1/1/15.
 //  Copyright (c) 2015 theswiftworld. All rights reserved.
 //
 
 import UIKit
+import PKHUD
 
-class ViewController: UIViewController {
-
+class ViewController: UIViewController,UIWebViewDelegate {
+    
+    var webView:UIWebView?
+    
+    var newsUrl:String?
+    
     override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        var contentView = HUDContentView.ProgressView()
+        HUDController.sharedController.contentView = contentView
+
+        
+        self.webView = UIWebView(frame: CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height))
+        self.webView?.delegate = self
+        self.view.addSubview(self.webView!)
+        
+        if(newsUrl != nil){
+
+            self.webView?.loadRequest(NSURLRequest(URL: NSURL(string: newsUrl!)!))
+            
+        }
+
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    func reloadUrl(url:String){
+        
+        HUDController.sharedController.show()
+        self.webView?.loadRequest(NSURLRequest(URL: NSURL(string: url)!))
+        
     }
-
-
+    
+    func webViewDidFinishLoad(webView: UIWebView) {
+        
+        HUDController.sharedController.hide(animated: true) 
+        
+    }
+    
 }
 

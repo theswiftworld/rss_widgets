@@ -2,7 +2,6 @@
 //  AppDelegate.swift
 //  rsswidget
 //
-//  Created by mengxiangping on 1/1/15.
 //  Copyright (c) 2015 theswiftworld. All rights reserved.
 //
 
@@ -17,6 +16,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         return true
+    }
+    
+    func application(application: UIApplication, handleOpenURL url: NSURL) -> Bool {
+        
+        var link:String?
+        if(url.query!.hasPrefix("link=")){
+        
+            link = url.query?.stringByReplacingOccurrencesOfString("link=", withString: "", options: nil, range: nil)
+            link = link?.stringByReplacingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+            
+        
+        }
+        
+        (window?.rootViewController as ViewController).reloadUrl(link!)
+
+        return true
+        
     }
 
     func applicationWillResignActive(application: UIApplication) {

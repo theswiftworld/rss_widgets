@@ -2,7 +2,6 @@
 //  NewsItem.swift
 //  googleNews
 //
-//  Created by mengxiangping on 12/26/14.
 //  Copyright (c) 2014 gl9. All rights reserved.
 //
 
